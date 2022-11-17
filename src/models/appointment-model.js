@@ -12,7 +12,7 @@ const AppointmentSchema = new Schema({
   date: {
     type: Date,
     default: new Date().toLocaleDateString("ru"),
-    required: true
+    required: true,
   },
   сomplaints: {
     type: String,
