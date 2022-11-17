@@ -1,11 +1,26 @@
-const express = require('express')
-const app = express()
-const port = 8000
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const mongoose = require("mongoose");
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const app = express();
+const PORT = process.env.PORT || 8000;
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
+
+const start = async () => {
+  try {
+    await mongoose.connect(process.env.URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    app.listen(PORT, () => console.log(`server started on port ${PORT}`));
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+start();
