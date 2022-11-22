@@ -1,6 +1,6 @@
-const UserModel = require("../models/user-model");
 const bcrypt = require("bcrypt");
-const tokenService = require("../service/token-service");
+const UserModel = require("../models/user-model");
+const TokenService = require("../service/token-service");
 const UserDto = require("../dtos/user-dto");
 const ApiError = require("../exceptions/api-error");
 
@@ -13,14 +13,10 @@ class UserService {
     }
 
     const hashPassword = await bcrypt.hash(password, 3);
-
     const user = await UserModel.create({ login, password: hashPassword });
-
     const userDto = new UserDto(user);
-
-    const tokens = tokenService.generateTokens({ ...userDto });
-
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+    const tokens = TokenService.generateTokens({ ...userDto });
+    await TokenService.saveToken(userDto.id, tokens.refreshToken);
 
     return {
       ...tokens,
@@ -42,17 +38,14 @@ class UserService {
     }
 
     const userDto = new UserDto(user);
-
-    const tokens = tokenService.generateTokens({ ...userDto });
-
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+    const tokens = TokenService.generateTokens({ ...userDto });
+    await TokenService.saveToken(userDto.id, tokens.refreshToken);
 
     return { ...tokens, user: userDto };
   }
 
   async logout(refreshToken) {
-    const token = await tokenService.removeToken(refreshToken);
-
+    const token = await TokenService.removeToken(refreshToken);
     return token;
   }
 
@@ -60,21 +53,18 @@ class UserService {
     if (!refreshToken) {
       throw ApiError.UnauthorizedError();
     }
-    const userData = tokenService.validateRefreshToken(refreshToken);
-
-    const tokenFromDataBase = await tokenService.findToken(refreshToken);
+    
+    const userData = TokenService.validateRefreshToken(refreshToken);
+    const tokenFromDataBase = await TokenService.findToken(refreshToken);
 
     if (!userData || !tokenFromDataBase) {
       throw ApiError.UnauthorizedError();
     }
 
     const user = await UserModel.findById(userData.id);
-
     const userDto = new UserDto(user);
-
-    const tokens = tokenService.generateTokens({ ...userDto });
-
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+    const tokens = TokenService.generateTokens({ ...userDto });
+    await TokenService.saveToken(userDto.id, tokens.refreshToken);
 
     return { ...tokens, user: userDto };
   }

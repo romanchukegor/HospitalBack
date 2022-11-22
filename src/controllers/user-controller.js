@@ -1,15 +1,22 @@
-const userService = require("../service/user-service");
+const UserService = require("../service/user-service");
+
+const maxAgeRefreshToken = 30 * 24 * 60 * 60 * 1000; // 30 days
+const maxAgeAccessToken = 30 * 60 * 1000; // 30 min
 
 class UserController {
   async registration(req, res, next) {
     try {
       const { login, password } = req.body;
 
-      const userData = await userService.registration(login, password);
+      const userData = await UserService.registration(login, password);
 
       res.cookie("refreshToken", userData.refreshToken, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
+        maxAge: maxAgeRefreshToken,
         httpOnly: true,
+      });
+
+      res.cookie("accessToken", userData.accessToken, {
+        maxAge: maxAgeAccessToken,
       });
 
       return res.json(userData);
@@ -22,11 +29,14 @@ class UserController {
     try {
       const { login, password } = req.body;
 
-      const userData = await userService.login(login, password);
-
+      const userData = await UserService.login(login, password);
       res.cookie("refreshToken", userData.refreshToken, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
+        maxAge: maxAgeRefreshToken,
         httpOnly: true,
+      });
+
+      res.cookie("accessToken", userData.accessToken, {
+        maxAge: maxAgeAccessToken,
       });
 
       return res.json(userData);
@@ -39,9 +49,9 @@ class UserController {
     try {
       const { refreshToken } = req.cookies;
 
-      const token = await userService.logout(refreshToken);
-
+      const token = await UserService.logout(refreshToken);
       res.clearCookie("refreshToken");
+      res.clearCookie("accessToken");
 
       return res.json(token);
     } catch (error) {
@@ -53,11 +63,15 @@ class UserController {
     try {
       const { refreshToken } = req.cookies;
 
-      const userData = await userService.refresh(refreshToken);
+      const userData = await UserService.refresh(refreshToken);
 
       res.cookie("refreshToken", userData.refreshToken, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
+        maxAge: maxAgeRefreshToken,
         httpOnly: true,
+      });
+
+      res.cookie("accessToken", userData.accessToken, {
+        maxAge: maxAgeAccessToken,
       });
 
       return res.json(userData);

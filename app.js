@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
-require("dotenv").config();
 const { URL, PORT } = require("./config");
 const router = require("./src/router/index");
 const errorMiddleware = require("./src/middlewares/error-middleware");
