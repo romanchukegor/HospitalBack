@@ -31,9 +31,9 @@ class UserService {
       throw ApiError.BadRequest(`Пользователь ${login} не найден`);
     }
 
-    const check = await bcrypt.compare(password, user.password);
+    const isPasswordsEquals = await bcrypt.compare(password, user.password);
 
-    if (!check) {
+    if (!isPasswordsEquals) {
       throw ApiError.BadRequest("Неверный пароль");
     }
 

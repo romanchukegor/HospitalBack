@@ -1,14 +1,18 @@
 const { check } = require("express-validator");
-const {validate} = require("./validation-result")
+const { validate } = require("./validation-result");
 
-module.exports.registrationValidator = [
+registrationValidator = [
   check("login")
+    .isString()
+    .withMessage("Login and password must be a string")
     .notEmpty()
     .withMessage("Empty String")
     .isLength({ min: 6 })
     .withMessage("Login must be more than 6 characters"),
 
   check("password")
+    .isString()
+    .withMessage("Login and password must be a string")
     .notEmpty()
     .withMessage("Empty String")
     .matches(
@@ -18,21 +22,28 @@ module.exports.registrationValidator = [
       "Password must be more than 6 characters and one and more number"
     ),
     
-    validate
+  validate
 ];
 
-module.exports.loginValidator = [
+loginValidator = [
   check("login")
     .trim()
+    .isString()
+    .withMessage("Login and password must be a string")
     .notEmpty()
     .withMessage("Empty String"),
 
   check("password")
     .trim()
+    .isString()
+    .withMessage("Login and password must be a string")
     .notEmpty()
     .withMessage("Empty String"),
 
   validate
 ];
 
-
+module.exports = {
+  registrationValidator,
+  loginValidator,
+};
