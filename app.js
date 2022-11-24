@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
-const { URL, PORT } = require("./config");
+const { URL, PORT, ORIGIN_URI } = require("./config");
 const router = require("./src/router/index");
 const errorMiddleware = require("./src/middlewares/error-middleware");
 
@@ -12,8 +12,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
   credentials: true,
-  origin: "http://localhost:3000"
-  
+  origin: ORIGIN_URI
 }));
 app.use("/api", router);
 app.use(errorMiddleware);

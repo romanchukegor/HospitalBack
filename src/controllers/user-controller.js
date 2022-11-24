@@ -37,7 +37,6 @@ class UserController {
       res.cookie("refreshToken", userData.refreshToken, {
         maxAgeRefreshToken,
       });
-
       res.cookie("accessToken", userData.accessToken, {
         maxAgeAccessToken,
       });
@@ -67,11 +66,9 @@ class UserController {
       const { refreshToken } = req.cookies;
 
       const userData = await UserService.refresh(refreshToken);
-
       res.cookie("refreshToken", userData.refreshToken, {
         maxAgeRefreshToken,
       });
-
       res.cookie("accessToken", userData.accessToken, {
         maxAgeAccessToken,
       });

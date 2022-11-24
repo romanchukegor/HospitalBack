@@ -4,7 +4,8 @@ const { validate } = require("./validation-result");
 registrationValidator = [
   check("login")
     .isString()
-    .withMessage("Login and password must be a string")
+    .withMessage("Login must be a string")
+    .trim()
     .notEmpty()
     .withMessage("Empty String")
     .isLength({ min: 6 })
@@ -12,7 +13,8 @@ registrationValidator = [
 
   check("password")
     .isString()
-    .withMessage("Login and password must be a string")
+    .withMessage("Password must be a string")
+    .trim()
     .notEmpty()
     .withMessage("Empty String")
     .matches(
@@ -27,16 +29,16 @@ registrationValidator = [
 
 loginValidator = [
   check("login")
-    .trim()
     .isString()
-    .withMessage("Login and password must be a string")
+    .withMessage("Login must be a string")
+    .trim()
     .notEmpty()
     .withMessage("Empty String"),
 
   check("password")
-    .trim()
     .isString()
-    .withMessage("Login and password must be a string")
+    .withMessage("Password must be a string")
+    .trim()
     .notEmpty()
     .withMessage("Empty String"),
 
