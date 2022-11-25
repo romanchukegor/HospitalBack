@@ -10,7 +10,6 @@ registrationValidator = [
     .withMessage("Empty String")
     .isLength({ min: 6 })
     .withMessage("Login must be more than 6 characters"),
-
   check("password")
     .isString()
     .withMessage("Password must be a string")
@@ -23,6 +22,7 @@ registrationValidator = [
     .withMessage(
       "Password must be more than 6 characters and one and more number"
     ),
+
   validate
 ];
 
@@ -33,13 +33,13 @@ loginValidator = [
     .trim()
     .notEmpty()
     .withMessage("Empty String"),
-
   check("password")
     .isString()
     .withMessage("Password must be a string")
     .trim()
     .notEmpty()
     .withMessage("Empty String"),
+    
   validate
 ];
 
