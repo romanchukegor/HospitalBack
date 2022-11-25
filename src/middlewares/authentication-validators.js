@@ -23,7 +23,6 @@ registrationValidator = [
     .withMessage(
       "Password must be more than 6 characters and one and more number"
     ),
-    
   validate
 ];
 
@@ -41,7 +40,6 @@ loginValidator = [
     .trim()
     .notEmpty()
     .withMessage("Empty String"),
-
   validate
 ];
 
