@@ -5,22 +5,18 @@ const AppointmentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Users",
   },
-
   name: {
     type: String,
     required: true,
   },
-
   doctor: {
     type: String,
     required: true,
   },
-
   date: {
     type: Date,
     required: true,
   },
-
   сomplaint: {
     type: String,
     required: true,
