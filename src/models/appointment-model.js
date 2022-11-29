@@ -5,7 +5,7 @@ const AppointmentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Users",
   },
-  
+
   name: {
     type: String,
     required: true,
@@ -21,10 +21,10 @@ const AppointmentSchema = new Schema({
     required: true,
   },
 
-  сomplaint: {
+  complaint: {
     type: String,
     required: true,
   },
 });
 
-module.exports = model("Appointments", AppointmentSchema);
+module.exports = Appointment = model("Appointments", AppointmentSchema);

@@ -16,14 +16,12 @@ registrationValidator = [
     .trim()
     .notEmpty()
     .withMessage("Empty String")
-    .matches(
-      /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g
-    )
+    .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/g)
     .withMessage(
       "Password must be more than 6 characters and one and more number"
     ),
 
-  validate
+  validate,
 ];
 
 loginValidator = [
@@ -39,8 +37,8 @@ loginValidator = [
     .trim()
     .notEmpty()
     .withMessage("Empty String"),
-    
-  validate
+
+  validate,
 ];
 
 module.exports = {

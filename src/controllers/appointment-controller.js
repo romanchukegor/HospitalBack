@@ -9,6 +9,14 @@ class AppointmentsController {
       next(error);
     }
   }
+  async createAppointment(req, res, next) {
+    try {
+      const newAppointment = await AppointmentsService.createAppointment(req);
+      res.send({ newAppointment });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new AppointmentsController();
