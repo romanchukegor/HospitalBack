@@ -1,5 +1,5 @@
 const { check } = require("express-validator");
-const { validate } = require("./validation-result");
+const { validationResponse } = require("./validation-result");
 
 createAppointmentValidator = [
   check("name")
@@ -14,7 +14,11 @@ createAppointmentValidator = [
     .trim()
     .notEmpty()
     .withMessage("Empty doctor's name"),
-  check("date").isDate().withMessage("Wrong date"),
+  check("date")
+    .notEmpty()
+    .withMessage("Empty date")
+    .isDate()
+    .withMessage("Wrong date"),
   check("complaint")
     .isString()
     .withMessage("Complaint must be a string")
@@ -22,7 +26,7 @@ createAppointmentValidator = [
     .notEmpty()
     .withMessage("Empty complaint"),
 
-  validate,
+    validationResponse,
 ];
 
 module.exports = {

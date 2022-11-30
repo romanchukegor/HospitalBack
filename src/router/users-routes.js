@@ -12,11 +12,7 @@ router.post(
   registrationValidator,
   UserController.registration
 );
-router.post(
-  "/login", 
-  loginValidator, 
-  UserController.login
-);
+router.post("/login", loginValidator, UserController.login);
 router.get("/logout", UserController.logout);
 router.get("/refresh", UserController.refresh);
 

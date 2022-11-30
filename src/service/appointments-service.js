@@ -1,23 +1,25 @@
 const Appointment = require("../models/appointment-model");
 
 class AppointmentsService {
-  async getAppointments() {
-    const allAppointments = await Appointment.find();
-    return allAppointments;
+  async getAppointments(userId) {
+    const userAppointments = await Appointment.find({ userId });
+
+    return userAppointments;
   }
-  async createAppointment(req) {
+  async createAppointment(body, userId) {
     try {
-      const { name, doctor, date, complaint } = req.body;
+      const { name, doctor, date, complaint } = body;
       const appointment = new Appointment({
         name,
         doctor,
         date,
         complaint,
+        userId,
       });
       const result = await appointment.save();
       return result;
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 }
