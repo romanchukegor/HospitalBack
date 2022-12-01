@@ -15,8 +15,13 @@ class AppointmentsController {
 
   async createAppointment(req, res, next) {
     try {
+      const { name, doctor, date, complaint } = req.body;
+
       const newAppointment = await AppointmentsService.createAppointment(
-        req.body,
+        name,
+        doctor,
+        date,
+        complaint,
         req.user.id
       );
 
