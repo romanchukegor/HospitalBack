@@ -30,6 +30,38 @@ class AppointmentsController {
       next(error);
     }
   }
+
+  async changeAppointment(req, res, next) {
+    try {
+      const { name, doctor, date, complaint } = req.body;
+
+      const editAppointment = await AppointmentsService.changeAppointment(
+        name,
+        doctor,
+        date,
+        complaint,
+        req.params._id
+      );
+
+      res.status(200).send(editAppointment);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async deleteAppointment(req, res, next) {
+    try {
+      const _id = req.params._id;
+
+      const deletedAppointment = await AppointmentsService.deleteAppointment({
+        _id,
+      });
+      
+      res.status(200).send(deletedAppointment);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new AppointmentsController();

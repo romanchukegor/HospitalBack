@@ -22,6 +22,29 @@ class AppointmentsService {
       next(error);
     }
   }
+  async changeAppointment(name, doctor, date, complaint, _id) {
+    try {
+      const appointment = await Appointment.findOneAndUpdate(
+        { _id },
+        { $set: { name, doctor, date, complaint } },
+        { new: true }
+      );
+
+      return appointment;
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async deleteAppointment(_id) {
+    try {
+      const appointment = await Appointment.deleteOne({ _id });
+      
+      return appointment;
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new AppointmentsService();
