@@ -2,7 +2,6 @@ const Router = require("express").Router;
 const AppointmentsController = require("../controllers/appointment-controller");
 const {
   createAppointmentValidator,
-  changeAppointmentValidator,
 } = require("../middlewares/appointments-validator");
 const authMiddleware = require("../middlewares/auth-middleware");
 
@@ -21,7 +20,7 @@ router.post(
 );
 router.patch(
   "/appointments/:_id/",
-  changeAppointmentValidator,
+  createAppointmentValidator,
   AppointmentsController.changeAppointment
 );
 router.delete("/appointments/:_id/", AppointmentsController.deleteAppointment);

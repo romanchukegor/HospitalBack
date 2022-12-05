@@ -35,7 +35,7 @@ class AppointmentsController {
     try {
       const { name, doctor, date, complaint } = req.body;
 
-      const editAppointment = await AppointmentsService.changeAppointment(
+      const updatedAppointment = await AppointmentsService.changeAppointment(
         name,
         doctor,
         date,
@@ -43,7 +43,7 @@ class AppointmentsController {
         req.params._id
       );
 
-      res.status(200).send(editAppointment);
+      res.status(200).send(updatedAppointment);
     } catch (error) {
       next(error);
     }
@@ -56,7 +56,7 @@ class AppointmentsController {
       const deletedAppointment = await AppointmentsService.deleteAppointment({
         _id,
       });
-      
+
       res.status(200).send(deletedAppointment);
     } catch (error) {
       next(error);

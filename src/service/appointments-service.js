@@ -6,6 +6,7 @@ class AppointmentsService {
 
     return appointments;
   }
+
   async createAppointment(name, doctor, date, complaint, userId) {
     try {
       const appointment = new Appointment({
@@ -22,15 +23,16 @@ class AppointmentsService {
       next(error);
     }
   }
+
   async changeAppointment(name, doctor, date, complaint, _id) {
     try {
-      const appointment = await Appointment.findOneAndUpdate(
+      const updatedAppointment = await Appointment.findOneAndUpdate(
         { _id },
         { $set: { name, doctor, date, complaint } },
         { new: true }
       );
 
-      return appointment;
+      return updatedAppointment;
     } catch (error) {
       next(error);
     }
@@ -38,9 +40,9 @@ class AppointmentsService {
 
   async deleteAppointment(_id) {
     try {
-      const appointment = await Appointment.deleteOne({ _id });
-      
-      return appointment;
+      const deletedAppointment = await Appointment.deleteOne({ _id });
+
+      return deletedAppointment;
     } catch (error) {
       next(error);
     }
