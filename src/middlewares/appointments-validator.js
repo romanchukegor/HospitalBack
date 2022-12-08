@@ -1,7 +1,7 @@
 const { check } = require("express-validator");
 const { validationResponse } = require("./validation-result");
 
-createAppointmentValidator = [
+appointmentValidator = [
   check("name")
     .isString()
     .withMessage("Name must be a string")
@@ -15,8 +15,6 @@ createAppointmentValidator = [
     .notEmpty()
     .withMessage("Empty doctor's name"),
   check("date")
-    .notEmpty()
-    .withMessage("Empty date")
     .isDate()
     .withMessage("Wrong date"),
   check("complaint")
@@ -30,5 +28,5 @@ createAppointmentValidator = [
 ];
 
 module.exports = {
-  createAppointmentValidator,
+  appointmentValidator,
 };

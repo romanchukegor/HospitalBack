@@ -40,9 +40,9 @@ class AppointmentsService {
 
   async deleteAppointment(_id) {
     try {
-      const deletedAppointment = await Appointment.deleteOne({ _id });
+      const deletedInfo = await Appointment.deleteOne({ _id });
 
-      return deletedAppointment;
+      return deletedInfo;
     } catch (error) {
       next(error);
     }

@@ -53,11 +53,11 @@ class AppointmentsController {
     try {
       const _id = req.params._id;
 
-      const deletedAppointment = await AppointmentsService.deleteAppointment({
+      const deletedInfo = await AppointmentsService.deleteAppointment({
         _id,
       });
 
-      res.status(200).send(deletedAppointment);
+      res.status(200).send(deletedInfo);
     } catch (error) {
       next(error);
     }
