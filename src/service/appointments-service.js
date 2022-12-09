@@ -1,20 +1,16 @@
 const Appointment = require("../models/appointment-model");
 
 class AppointmentsService {
-  async getAppointments(userId) {
+  async getAppointmentsById(userId) {
     const appointments = await Appointment.find({ userId });
 
     return appointments;
   }
 
-  async createAppointment(name, doctor, date, complaint, userId) {
+  async createAppointment(info) {
     try {
       const appointment = new Appointment({
-        name,
-        doctor,
-        date,
-        complaint,
-        userId,
+        ...info,
       });
       const result = await appointment.save();
 
@@ -24,11 +20,12 @@ class AppointmentsService {
     }
   }
 
-  async changeAppointment(name, doctor, date, complaint, _id) {
+  async changeAppointmentById(_id, info) {
+    console.log(info);
     try {
       const updatedAppointment = await Appointment.findOneAndUpdate(
         { _id },
-        { $set: { name, doctor, date, complaint } },
+        { $set: { ...info } },
         { new: true }
       );
 
@@ -38,7 +35,7 @@ class AppointmentsService {
     }
   }
 
-  async deleteAppointment(_id) {
+  async deleteAppointmentById(_id) {
     try {
       const deletedInfo = await Appointment.deleteOne({ _id });
 
