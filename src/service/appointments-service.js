@@ -7,10 +7,10 @@ class AppointmentsService {
     return appointments;
   }
 
-  async createAppointment(info) {
+  async createAppointment(appointmentInfo) {
     try {
       const appointment = new Appointment({
-        ...info,
+        ...appointmentInfo,
       });
       const result = await appointment.save();
 
@@ -20,12 +20,11 @@ class AppointmentsService {
     }
   }
 
-  async changeAppointmentById(_id, info) {
-    console.log(info);
+  async changeAppointmentById(_id, appointmentInfo) {
     try {
       const updatedAppointment = await Appointment.findOneAndUpdate(
         { _id },
-        { $set: { ...info } },
+        { $set: { ...appointmentInfo } },
         { new: true }
       );
 

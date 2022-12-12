@@ -27,6 +27,4 @@ appointmentValidator = [
   validationResponse,
 ];
 
-module.exports = {
-  appointmentValidator,
-};
+module.exports = appointmentValidator;
