@@ -1,23 +1,44 @@
 const Appointment = require("../models/appointment-model");
 
 class AppointmentsService {
-  async getAppointments(userId) {
+  async getAppointmentsById(userId) {
     const appointments = await Appointment.find({ userId });
 
     return appointments;
   }
-  async createAppointment(name, doctor, date, complaint, userId) {
+
+  async createAppointment(appointmentInfo) {
     try {
       const appointment = new Appointment({
-        name,
-        doctor,
-        date,
-        complaint,
-        userId,
+        ...appointmentInfo,
       });
       const result = await appointment.save();
 
       return result;
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async changeAppointmentById(_id, appointmentInfo) {
+    try {
+      const updatedAppointment = await Appointment.findOneAndUpdate(
+        { _id },
+        { $set: { ...appointmentInfo } },
+        { new: true }
+      );
+
+      return updatedAppointment;
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async deleteAppointmentById(_id) {
+    try {
+      const deletedInfo = await Appointment.deleteOne({ _id });
+
+      return deletedInfo;
     } catch (error) {
       next(error);
     }
