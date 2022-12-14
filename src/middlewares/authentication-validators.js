@@ -1,5 +1,5 @@
 const { check } = require("express-validator");
-const { validate } = require("./validation-result");
+const { validationResponse } = require("./validation-result");
 
 registrationValidator = [
   check("login")
@@ -16,14 +16,12 @@ registrationValidator = [
     .trim()
     .notEmpty()
     .withMessage("Empty String")
-    .matches(
-      /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g
-    )
+    .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/g)
     .withMessage(
       "Password must be more than 6 characters and one and more number"
     ),
 
-  validate
+  validationResponse,
 ];
 
 loginValidator = [
@@ -39,8 +37,8 @@ loginValidator = [
     .trim()
     .notEmpty()
     .withMessage("Empty String"),
-    
-  validate
+
+  validationResponse,
 ];
 
 module.exports = {
